@@ -1,33 +1,52 @@
 ---
+import { basics } from "@cv"
+
 interface Props {
-  title: string;
+  title: string
 }
 
-const { title } = Astro.props;
+const { title } = Astro.props
+
+const { image, summary, url } = basics
 ---
 
 <!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <title>{title}</title>
+    <meta name="description" content={summary} />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
+    <link rel="preload" as="image" href={image} />
+
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={summary} />
+    <meta property="og:image" content="" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content={url.split("//")[1] ?? ''} />
+    <meta property="twitter:url" content={url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={summary} />
+    <meta name="twitter:image" content="" />
   </head>
   <body>
     <slot />
   </body>
 </html>
+
 <style is:global>
   html {
     font-family:
-      "Menlo",
+      Menlo,
       Monaco,
       Lucida Console,
       "Courier New",
-      "Courier" monospace;
+      Courier,
+      monospace;
     background: #fff;
     letter-spacing: -0.025rem;
   }
@@ -39,7 +58,6 @@ const { title } = Astro.props;
   }
 
   a {
-    color: #0070f3;
     text-decoration: none;
   }
 
@@ -58,9 +76,7 @@ const { title } = Astro.props;
   h1,
   h2,
   h3,
-  h4,
-  h5,
-  h6 {
+  h4 {
     margin: 0;
     font-family:
       system-ui,
@@ -77,10 +93,32 @@ const { title } = Astro.props;
   }
 
   p {
-    color: #888;
-    font-size: 0.8rem;
+    color: #666;
+    font-size: 0.9rem;
     line-height: 1.5;
     margin: 0;
     text-wrap: pretty;
+  }
+
+  .print {
+    display: none !important;
+  }
+
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .print {
+      display: block !important;
+    }
+
+    astro-dev-toolbar {
+      display: none !important;
+    }
+
+    article {
+      break-inside: avoid;
+    }
   }
 </style>

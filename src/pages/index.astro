@@ -1,15 +1,19 @@
 ---
-import Layout from "@/layouts/Layout.astro";
-import Experience from "@/components/Experience.astro";
-import About from "@/components/About.astro";
-import Education from "@/components/Education.astro";
-import Hero from "@/components/Hero.astro";
-import Projects from "@/components/Projects.astro";
-import Skills from "@/components/Skills.astro";
-import KeyboardManager from "@/components/KeyboardManager.astro";
+import Layout from "@/layouts/Layout.astro"
+
+import About from "@/components/sections/About.astro"
+import Education from "@/components/sections/Education.astro"
+import Experience from "@/components/sections/Experience.astro"
+import Hero from "@/components/sections/Hero.astro"
+import Projects from "@/components/sections/Projects.astro"
+import Skills from "@/components/sections/Skills.astro"
+import KeyboardManager from "@/components/KeyboardManager.astro"
+
+import { basics } from "@cv"
+const { name, label } = basics
 ---
 
-<Layout title="Minimalist Portfolio.">
+<Layout title={`Portafolio de ${name} - ${label}`}>
   <main>
     <Hero />
     <About />
@@ -22,4 +26,16 @@ import KeyboardManager from "@/components/KeyboardManager.astro";
   <KeyboardManager />
 </Layout>
 
-<style></style>
+<style>
+  main {
+    padding: 4rem;
+    margin: auto;
+    width: 100%;
+  }
+
+  @media (width <= 700px) {
+    main {
+      padding: 2rem;
+    }
+  }
+</style>
